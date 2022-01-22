@@ -2,10 +2,11 @@ from calendar import month_name
 import calendar
 from email.mime import base
 import streamlit as st
-# import pandas as pd
+import pandas as pd
 # library
 import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
+import numpy as np
 
 from gsheetsdb import connect
 
@@ -32,6 +33,15 @@ for row in rows:
     if row.category=="Grocery":
         groceryExpense= row.amount
 
+#STATES#
+# if 'count' not in st.session_state:
+#     st.session_state.count = 0
+
+# increment = st.button('Increment')
+# if increment:
+#     st.session_state.count += 1
+
+st.write('Count = ', st.session_state.count)
 def donutGenerator(target,income,color1,color2):
     budgetPercentage=target/income*100
     leftOverPercentage = 100-budgetPercentage
@@ -49,7 +59,8 @@ def donutGenerator(target,income,color1,color2):
     # plt.text(0, 50, , ha='center', va='center', fontsize=10)
 
     return fig,ax 
-
+def updateCol(x,y):
+	return y
 def donutGeneratorOverBudget(target,income,color1,color2):
     budgetPercentage=target/income*100
     leftOverPercentage = 100-budgetPercentage
@@ -200,10 +211,62 @@ if page=="Expenses":
     st.pyplot(fig)
     savingsSurplus= disposableIncome/currentIncome *100
     baselineForFDSuggestion=30
+    st.subheader("Insights")
     if savingsSurplus>baselineForFDSuggestion:
         st.success("You have more than "+str(baselineForFDSuggestion)+"% of savings. Grow your money by using RHB's Fixed Deposit Plan")
         link = '[Know More](https://www.rhbgroup.com/238/index.html?utm_source=carousel_banner&utm_medium=carousel_banner&utm_campaign=RHBTD)'
         st.markdown(link, unsafe_allow_html=True)
+        # initialize list of lists
+    data = [['Food Budget', foodBudget], ['Transport Budget', transportBudget], ['Grocery Budget', groceryBudget],['Insurance Budget',insuranceBudget],['Savings',disposableIncome]]
+
+    
+    # Create the pandas DataFrame
+    df = pd.DataFrame(data, columns = ['Categories', 'Amount(RM)'])
+    
+    st.table(df)
+
+
+    st.header("💸 My Income")
+    st.subheader("Categorised Income")
+    df =pd.read_csv("cat_spending.csv")
+    customerRecords=df[df['display_category'] !="Uncategorised"]
+    print(customerRecords)
+    st.table(customerRecords)
+
+    st.subheader("Uncategorised Income")
+    with st.expander("📝 Actions Needed"):
+        uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
+
+        uniqueTxn=uncategorisedIncome['txn_category'].unique()
+        for key in (uniqueTxn):
+            st.write("Found "+key +"as uncategorised.")
+            label = st.text_input('Category',key=key)
+            print(label)
+            if label!="":
+                st.success("Category has been updated")
+                uncategorisedIncome["display_category"] = np.where(uncategorisedIncome["txn_category"] == key, label, "Uncategorised")
+                
+                uncategorisedIncome['display_category'] = w['display_category'].map({'female': 1, 'male': 0})
+        st.table(uncategorisedIncome)
+
+
+                # uncategorisedIncome=df[df["txn_category"]==key].apply(updateCol(label))
+                
+
+    # with st.expander("📝 Actions Needed"):
+        # st.write("Found transaction name: 'RPP INWD INST Cas' Uncategorised")
+        # label1=st.text_input("Category")
+        # agree1 = st.checkbox('Recurring')
+        # st.write("Found transaction name: 'ATM-MEPS CSHREVas' Uncategorised")
+        # label2=st.text_input("Category")
+        # agree2 = st.checkbox('Recurring')
+
+        
+
+    # with st.expander("📝 Actions Needed"):
+
+
+    
 
 # df= pd.read_csv("sample_creditcard_txn.csv")
 # df['TRANSACTION_DATE'] = pd.to_datetime(df['TRANSACTION_DATE'], errors='coerce')
