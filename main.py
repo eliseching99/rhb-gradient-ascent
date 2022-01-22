@@ -41,7 +41,7 @@ for row in rows:
 # if increment:
 #     st.session_state.count += 1
 
-st.write('Count = ', st.session_state.count)
+# st.write('Count = ', st.session_state.count)
 def donutGenerator(target,income,color1,color2):
     budgetPercentage=target/income*100
     leftOverPercentage = 100-budgetPercentage
