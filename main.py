@@ -232,7 +232,9 @@ if page=="Expenses":
     st.subheader("Uncategorised Expenses")
     with st.expander("📝 Actions Needed"):
         df =pd.read_csv("cat_spending.csv")
-        st.table(df)
+        df = df.sort_values(by=['amt'], ascending=False)
+
+        st.table(df.head(5))
         # uncategorisedSpending=df[df["display_category"]=="Uncategorised"]
 
     #insights
