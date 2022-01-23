@@ -92,20 +92,20 @@ page = st.sidebar.selectbox(
 )
 st.title('Budget Buddy 💰')
 if page=="Accounts":
-    st.header("Financial Performance")
+    st.header("Cash Flow")
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Income This Month", "RM7230", "222.7%")
     with col2:
         st.metric("Expenses This Month", "RM3901", "2.8%",delta_color="inverse")
     with col3:
-        st.metric("CA/SA Growth", "RM3329", "313%")
-    st.header("Net Worth")
+        st.metric("Savings This Month", "RM3329", "313%")
+    st.header("Account Balances")
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("CA/SA Balance", "RM4109")
+        st.metric("Current/Savings Account", "RM4109")
     with col2:
-        st.metric("CC Balance", "0")
+        st.metric("Credit Card", "0")
     with col3:
         st.metric("Net Worth", "RM4109")
 
