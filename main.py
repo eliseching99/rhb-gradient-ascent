@@ -203,7 +203,7 @@ if page=="Expenses":
     ax.text(0.30, -0.05, outputStr, transform=ax.transAxes, fontsize=12,
             verticalalignment='top')
     st.pyplot(fig)
-    st.header("💸 Income/Expenses")
+    st.header("Income/Expenses Category")
     df =pd.read_csv("cat_income.csv")
     with st.expander("Uncategorised Income"):
         uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
@@ -232,8 +232,21 @@ if page=="Expenses":
         df = df.sort_values(by=['amt'], ascending=False)
 
         st.table(df.head(5))
+    
         # uncategorisedSpending=df[df["display_category"]=="Uncategorised"]
-
+    st.header("Budget Planner")
+    foodBudget1 = st.slider(
+            'Select target budget for Food',
+            0, currentIncome,3000,help="The maximum budget you can choose is based on your current income")
+    transportBudget1 = st.slider(
+    'Select target budget for Transport',
+    0, currentIncome,700)
+    groceryBudget1= st.slider(
+        'Select target budget for Grocery',
+        0, currentIncome,500)
+    insuranceBudget1= st.slider(
+        'Select target budget for Insurance',
+        0, currentIncome,700)
     #insights
     # savingsSurplus= disposableIncome/currentIncome *100
     # baselineForFDSuggestion=30
