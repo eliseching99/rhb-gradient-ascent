@@ -221,7 +221,7 @@ if page=="Expenses":
     st.pyplot(fig)
     st.header("Income/Expenses Category")
     df =pd.read_csv("cat_income.csv")
-    with st.expander("Uncategorised Income"):
+    with st.expander("Uncategorised Income",expanded=True):
         uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
         total = uncategorisedIncome['amt'].sum()
         st.write("Total:RM "+str(total))
@@ -245,7 +245,7 @@ if page=="Expenses":
 
         st.table(final_df.head(5))
 
-    with st.expander("Uncategorised Expenses"):
+    with st.expander("Uncategorised Expenses",expanded=True):
 
         df =pd.read_csv("cat_spending.csv")
         total = df['amt'].sum()
