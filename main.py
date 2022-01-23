@@ -203,24 +203,7 @@ if page=="Expenses":
     ax.text(0.30, -0.05, outputStr, transform=ax.transAxes, fontsize=12,
             verticalalignment='top')
     st.pyplot(fig)
-    savingsSurplus= disposableIncome/currentIncome *100
-    baselineForFDSuggestion=30
-    st.subheader("Insights")
-    if savingsSurplus>baselineForFDSuggestion:
-        st.success("You have more than "+str(baselineForFDSuggestion)+"% of savings. Grow your money by using RHB's Fixed Deposit Plan")
-        link = '[Know More](https://www.rhbgroup.com/238/index.html?utm_source=carousel_banner&utm_medium=carousel_banner&utm_campaign=RHBTD)'
-        st.markdown(link, unsafe_allow_html=True)
-        # initialize list of lists
-    data = [['Food Budget', foodBudget], ['Transport Budget', transportBudget], ['Grocery Budget', groceryBudget],['Insurance Budget',insuranceBudget],['Savings',disposableIncome]]
-
-    
-    # Create the pandas DataFrame
-    df = pd.DataFrame(data, columns = ['Categories', 'Amount(RM)'])
-    
-    st.table(df)
-
-
-    st.header("💸 My Income")
+    st.header("💸 Uncategorised")
     df =pd.read_csv("cat_spending.csv")
 
     st.subheader("Uncategorised Income")
@@ -239,15 +222,36 @@ if page=="Expenses":
             agree = st.checkbox('Recurring',key=key)
 
             if agree:
-                uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
+                # uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
 
                 st.session_state.income += 5
+        final_df = uncategorisedIncome.sort_values(by=['amt'], ascending=False)
 
-        st.table(uncategorisedIncome)
-    st.subheader("Categorised Income")
-    customerRecords=df[df['display_category'] !="Uncategorised"]
-    print(customerRecords)
-    st.table(customerRecords)
+        st.table(final_df)
+
+    #insights
+    # savingsSurplus= disposableIncome/currentIncome *100
+    # baselineForFDSuggestion=30
+    # st.subheader("Insights")
+    # if savingsSurplus>baselineForFDSuggestion:
+    #     st.success("You have more than "+str(baselineForFDSuggestion)+"% of savings. Grow your money by using RHB's Fixed Deposit Plan")
+    #     link = '[Know More](https://www.rhbgroup.com/238/index.html?utm_source=carousel_banner&utm_medium=carousel_banner&utm_campaign=RHBTD)'
+    #     st.markdown(link, unsafe_allow_html=True)
+    #     # initialize list of lists
+    # data = [['Food Budget', foodBudget], ['Transport Budget', transportBudget], ['Grocery Budget', groceryBudget],['Insurance Budget',insuranceBudget],['Savings',disposableIncome]]
+
+    
+    # # Create the pandas DataFrame
+    # df = pd.DataFrame(data, columns = ['Categories', 'Amount(RM)'])
+    
+    # st.table(df)
+
+
+
+    # st.subheader("Categorised Income")
+    # customerRecords=df[df['display_category'] !="Uncategorised"]
+    # print(customerRecords)
+    # st.table(customerRecords)
 
     
 
