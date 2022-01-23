@@ -33,7 +33,7 @@ for row in rows:
     if row.category=="Grocery":
         groceryExpense= row.amount
 
-STATES#
+#STATES#
 if 'count' not in st.session_state:
     st.session_state.income = 0
 
