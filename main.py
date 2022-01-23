@@ -34,9 +34,14 @@ for row in rows:
         groceryExpense= row.amount
 
 #STATES#
-if 'count' not in st.session_state:
-    st.session_state.income = 0
-
+if 'foodBudget' not in st.session_state:
+    st.session_state.foodBudget = 3000
+if 'transportBudget' not in st.session_state:
+    st.session_state.transportBudget = 700
+if 'groceryBudget' not in st.session_state:
+    st.session_state.groceryBudget = 500
+if 'insuranceBudget' not in st.session_state:
+    st.session_state.insuranceBudget= 700
 # increment = st.button('Increment')
 # if increment:
 #     st.session_state.count += 1
@@ -188,7 +193,7 @@ if page=="Expenses":
             if insuranceExpense>insuranceBudget:
                 balance= insuranceExpense-insuranceBudget
                 st.warning("⚠️ Looks like your spending RM" + str(balance)+" more than your target budget")
-    st.header("My Budget")
+    st.header("My expenses")
     fig, ax = plt.subplots(figsize=(4, 4))
     wedgeprops = {'width':0.3, 'edgecolor':'black', 'linewidth':3}
     names=["Food","Transport","Grocery","Insurance","Savings"]
@@ -235,18 +240,18 @@ if page=="Expenses":
     
         # uncategorisedSpending=df[df["display_category"]=="Uncategorised"]
     st.header("Budget Planner")
-    foodBudget1 = st.slider(
+    st.session_state.foodBudget = st.slider(
             'Select target budget for Food',
             0, currentIncome,3000,help="The maximum budget you can choose is based on your current income")
-    transportBudget1 = st.slider(
+    st.session_state.transportBudget = st.slider(
     'Select target budget for Transport',
     0, currentIncome,700)
-    groceryBudget1= st.slider(
-        'Select target budget for Grocery',
-        0, currentIncome,500)
-    insuranceBudget1= st.slider(
-        'Select target budget for Insurance',
-        0, currentIncome,700)
+    st.session_state.groceryBudget= st.slider(
+    'Select target budget for Grocery',
+    0, currentIncome,500)
+    st.session_state.insuranceBudget= st.slider(
+    'Select target budget for Insurance',
+    0, currentIncome,700)
     #insights
     # savingsSurplus= disposableIncome/currentIncome *100
     # baselineForFDSuggestion=30
