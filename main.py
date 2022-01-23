@@ -227,7 +227,7 @@ if page=="Expenses":
         #         st.session_state.income += 5
         final_df = uncategorisedIncome.sort_values(by=['amt'], ascending=False)
 
-        st.table(final_df)
+        st.table(final_df.head(5))
 
     st.subheader("Uncategorised Expenses")
     with st.expander("📝 Actions Needed"):
