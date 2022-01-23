@@ -207,13 +207,14 @@ if page=="Expenses":
     uncategorisedExpense = 2300
     ax.pie([foodBudget,transportBudget,groceryBudget,insuranceBudget,disposableIncome,uncategorisedExpense],explode=explode,labels=names,autopct='%1.1f%%', wedgeprops=wedgeprops, startangle=90, colors=["#5DADE2",'#FFC0CB','#77dd77','#515A5A','#FDFD96','#E6E6FA'])
     plt.text(0, 0, proportionExpenses+"%", ha='center', va='center', fontsize=30)
-    ax.text(0.30, -0.05, outputStr, transform=ax.transAxes, fontsize=12,
-            verticalalignment='top')
+  
     st.pyplot(fig)
     st.header("Income/Expenses Category")
     df =pd.read_csv("cat_income.csv")
     with st.expander("Uncategorised Income"):
         uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
+        total = uncategorisedIncome['amt'].sum()
+        st.write("Total:RM "+str(total))
 
         # uniqueTxn=uncategorisedIncome['txn_category'].unique()
         # for key in (uniqueTxn):
@@ -235,7 +236,11 @@ if page=="Expenses":
         st.table(final_df.head(5))
 
     with st.expander("Uncategorised Expenses"):
+
         df =pd.read_csv("cat_spending.csv")
+        total = df['amt'].sum()
+        print (total)
+        st.write("Total:RM "+str(total))
         df = df.sort_values(by=['amt'], ascending=False)
 
         st.table(df.head(5))
