@@ -204,30 +204,36 @@ if page=="Expenses":
             verticalalignment='top')
     st.pyplot(fig)
     st.header("💸 Uncategorised")
-    df =pd.read_csv("cat_spending.csv")
+    df =pd.read_csv("cat_income.csv")
 
     st.subheader("Uncategorised Income")
     with st.expander("📝 Actions Needed"):
         uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
 
-        uniqueTxn=uncategorisedIncome['txn_category'].unique()
-        for key in (uniqueTxn):
-            st.write("Found "+key +"as uncategorised.")
-            label = st.text_input('Category',key=key)
-            print(label)
-            if label!="":
-                st.success("Category has been updated")
-                uncategorisedIncome["display_category"] = np.where(uncategorisedIncome["txn_category"] == key, label, "Uncategorised")
+        # uniqueTxn=uncategorisedIncome['txn_category'].unique()
+        # for key in (uniqueTxn):
+        #     st.write("Found "+key +"as uncategorised.")
+        #     label = st.text_input('Category',key=key)
+        #     print(label)
+        #     if label!="":
+        #         st.success("Category has been updated")
+        #         uncategorisedIncome["display_category"] = np.where(uncategorisedIncome["txn_category"] == key, label, "Uncategorised")
                 
-            agree = st.checkbox('Recurring',key=key)
+        #     # agree = st.checkbox('Recurring',key=key)
 
-            if agree:
-                # uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
+        #     # if agree:
+        #         # uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
 
-                st.session_state.income += 5
+        #         st.session_state.income += 5
         final_df = uncategorisedIncome.sort_values(by=['amt'], ascending=False)
 
         st.table(final_df)
+
+    st.subheader("Uncategorised Expenses")
+    with st.expander("📝 Actions Needed"):
+        df =pd.read_csv("cat_spending.csv")
+        st.table(df)
+        # uncategorisedSpending=df[df["display_category"]=="Uncategorised"]
 
     #insights
     # savingsSurplus= disposableIncome/currentIncome *100
