@@ -203,11 +203,9 @@ if page=="Expenses":
     ax.text(0.30, -0.05, outputStr, transform=ax.transAxes, fontsize=12,
             verticalalignment='top')
     st.pyplot(fig)
-    st.header("💸 Uncategorised")
+    st.header("💸 Income/Expenses")
     df =pd.read_csv("cat_income.csv")
-
-    st.subheader("Uncategorised Income")
-    with st.expander("📝 Actions Needed"):
+    with st.expander("Uncategorised Income"):
         uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
 
         # uniqueTxn=uncategorisedIncome['txn_category'].unique()
@@ -229,8 +227,7 @@ if page=="Expenses":
 
         st.table(final_df.head(5))
 
-    st.subheader("Uncategorised Expenses")
-    with st.expander("📝 Actions Needed"):
+    with st.expander("Uncategorised Expenses"):
         df =pd.read_csv("cat_spending.csv")
         df = df.sort_values(by=['amt'], ascending=False)
 
