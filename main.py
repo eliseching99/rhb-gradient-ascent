@@ -90,7 +90,6 @@ page = st.sidebar.selectbox(
     "Navigation",
     ("Accounts", "Expenses")
 )
-st.title('Budget Buddy 💰')
 if page=="Accounts":
     st.header("Cash Flow")
     col1, col2, col3 = st.columns(3)
@@ -100,6 +99,15 @@ if page=="Accounts":
         st.metric("Expenses This Month", "RM3901", "2.8%",delta_color="inverse")
     with col3:
         st.metric("Savings This Month", "RM3329", "313%")
+    st.text("")
+    st.text("")
+    st.text("")
+    st.text("")
+    st.text("")
+    st.text("")
+    st.text("")
+    st.text("")
+    st.text("")
     st.header("Account Balances")
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -127,7 +135,7 @@ if page=="Expenses":
             st.subheader("Food 🍔")
             foodBudget = st.slider(
             'Select new target budget for Food',
-            0, currentIncome,3000,help="The maximum budget you can choose is based on your current income")
+            0, currentIncome,1479,help="The maximum budget you can choose is based on your current income")
             if foodExpense>foodBudget:
                 figure,ax=donutGeneratorOverBudget(foodExpense,foodBudget,'#5DADE2', '#515A5A')
             else:
@@ -197,16 +205,18 @@ if page=="Expenses":
     st.header("My expenses")
     fig, ax = plt.subplots(figsize=(4, 4))
     wedgeprops = {'width':0.3, 'edgecolor':'black', 'linewidth':3}
-    names=["Food","Transport","Grocery","Insurance","Savings","Uncategorised"]
-    disposableIncome=currentIncome-foodBudget-transportBudget-groceryBudget-insuranceBudget
-    totalExpenses= foodBudget+transportBudget+groceryBudget+insuranceBudget
-    proportionExpenses= str(int(totalExpenses/currentIncome*100))
-    outputStr= "RM"+str(totalExpenses)+"/"+"RM"+str(currentIncome)
-    # explosion
-    explode = (0.0, 0.00, 0.00, 0.00, 0.1,0)
+    names=["Food","Transport","Grocery","Insurance","Uncategorised"]
     uncategorisedExpense = 2300
-    ax.pie([foodBudget,transportBudget,groceryBudget,insuranceBudget,disposableIncome,uncategorisedExpense],explode=explode,labels=names,autopct='%1.1f%%', wedgeprops=wedgeprops, startangle=90, colors=["#5DADE2",'#FFC0CB','#77dd77','#515A5A','#FDFD96','#E6E6FA'])
-    plt.text(0, 0, proportionExpenses+"%", ha='center', va='center', fontsize=30)
+
+    # disposableIncome=currentIncome-foodBudget-transportBudget-groceryBudget-insuranceBudget
+    totalExpenses= foodBudget+transportBudget+groceryBudget+insuranceBudget +uncategorisedExpense
+    # proportionExpenses= str(int(totalExpenses/currentIncome*100))
+    # outputStr= "RM"+str(totalExpenses)+"/"+"RM"+str(currentIncome)
+    # explosion
+    explode = (0.0, 0.00, 0.00, 0.00, 0.1)
+    uncategorisedExpense = 2368
+    ax.pie([foodBudget,transportBudget,groceryBudget,insuranceBudget,uncategorisedExpense],explode=explode,labels=names,autopct='%1.1f%%', wedgeprops=wedgeprops, startangle=90, colors=["#5DADE2",'#FFC0CB','#77dd77','#515A5A','#E6E6FA'])
+    # plt.text(0, 0, proportionExpenses+"%", ha='center', va='center', fontsize=30)
   
     st.pyplot(fig)
     st.header("Income/Expenses Category")
