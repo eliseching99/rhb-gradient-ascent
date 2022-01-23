@@ -33,9 +33,9 @@ for row in rows:
     if row.category=="Grocery":
         groceryExpense= row.amount
 
-#STATES#
-# if 'count' not in st.session_state:
-#     st.session_state.count = 0
+STATES#
+if 'count' not in st.session_state:
+    st.session_state.income = 0
 
 # increment = st.button('Increment')
 # if increment:
@@ -103,12 +103,6 @@ if page=="Accounts":
     with col3:
         st.metric("Net Worth", "RM4109")
 
-    st.header("Forecasts 📈")
-    col1, col2 = st.columns(2)
-    with col1:
-        components.iframe("https://docs.google.com/spreadsheets/d/e/2PACX-1vTeh-OmritLrP4YuPMuk3SveyAetRPrC3DmvLzeZ3EUfivTd2h_2FUZbVCXhZEfHT3GPgDPmr3Wn3n3/pubchart?oid=1766636204&amp;format=interactive",width=500,height=371, scrolling=True)   
-    with col2:
-        components.iframe("https://docs.google.com/spreadsheets/d/e/2PACX-1vTeh-OmritLrP4YuPMuk3SveyAetRPrC3DmvLzeZ3EUfivTd2h_2FUZbVCXhZEfHT3GPgDPmr3Wn3n3/pubchart?oid=572396902&amp;format=interactive",width=500,height=371, scrolling=True)
 
 currentIncome=7230
 averageMYFood = 2500
@@ -246,7 +240,13 @@ if page=="Expenses":
                 st.success("Category has been updated")
                 uncategorisedIncome["display_category"] = np.where(uncategorisedIncome["txn_category"] == key, label, "Uncategorised")
                 
-                uncategorisedIncome['display_category'] = w['display_category'].map({'female': 1, 'male': 0})
+            agree = st.checkbox('Recurring')
+
+            if agree:
+                uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
+
+                st.session_state.income += 5
+
         st.table(uncategorisedIncome)
 
 
