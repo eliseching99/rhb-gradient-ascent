@@ -1,4 +1,4 @@
-﻿txn_category,amt,sender_recipient,txn_month,display_category,recurring
+﻿txn_category,amt,sender,txn_month,display_category,recurring
 EPF PAYMENT-CR,1000,,2021-12,Income Support (Loan),
 RPP INWD INST C,608,WINCOLN TEO,2021-12,Uncategorised,
 IBK FUND TRF CR,130,ABDUL RAHMAN BIN SEZALI,2021-12,Income Support (Loan),
@@ -7,4 +7,4 @@ RPP INWD INST C,5000,NOR HADIE BIN DATONG,2021-12,Uncategorised,
 RPP INWD INST C,1000,NOR HADIE BIN DATONG,2021-12,Uncategorised,
 RPP INWD INST C,1500,NOR HADIE BIN DATONG,2021-12,Uncategorised,
 ATM-MEPS CSHREV,200,,2021-12,Uncategorised,
-RFLX PAYROLL CR,7229.53,KAH MOTOR COMPANY SDN BERHAD,2021-12,Salary,
+RFLX PAYROLL CR,7230,KAH MOTOR COMPANY SDN BERHAD,2021-12,Salary,
