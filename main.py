@@ -197,14 +197,15 @@ if page=="Expenses":
     st.header("My expenses")
     fig, ax = plt.subplots(figsize=(4, 4))
     wedgeprops = {'width':0.3, 'edgecolor':'black', 'linewidth':3}
-    names=["Food","Transport","Grocery","Insurance","Savings"]
+    names=["Food","Transport","Grocery","Insurance","Savings","Uncategorised"]
     disposableIncome=currentIncome-foodBudget-transportBudget-groceryBudget-insuranceBudget
     totalExpenses= foodBudget+transportBudget+groceryBudget+insuranceBudget
     proportionExpenses= str(int(totalExpenses/currentIncome*100))
     outputStr= "RM"+str(totalExpenses)+"/"+"RM"+str(currentIncome)
     # explosion
-    explode = (0.0, 0.00, 0.00, 0.00, 0.1)
-    ax.pie([foodBudget,transportBudget,groceryBudget,insuranceBudget,disposableIncome],explode=explode,labels=names,autopct='%1.1f%%', wedgeprops=wedgeprops, startangle=90, colors=["#5DADE2",'#FFC0CB','#77dd77','#515A5A','#FDFD96'])
+    explode = (0.0, 0.00, 0.00, 0.00, 0.1,0)
+    uncategorisedExpense = 2300
+    ax.pie([foodBudget,transportBudget,groceryBudget,insuranceBudget,disposableIncome,uncategorisedExpense],explode=explode,labels=names,autopct='%1.1f%%', wedgeprops=wedgeprops, startangle=90, colors=["#5DADE2",'#FFC0CB','#77dd77','#515A5A','#FDFD96','#E6E6FA'])
     plt.text(0, 0, proportionExpenses+"%", ha='center', va='center', fontsize=30)
     ax.text(0.30, -0.05, outputStr, transform=ax.transAxes, fontsize=12,
             verticalalignment='top')
