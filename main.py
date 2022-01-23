@@ -42,11 +42,12 @@ if 'groceryBudget' not in st.session_state:
     st.session_state.groceryBudget = 500
 if 'insuranceBudget' not in st.session_state:
     st.session_state.insuranceBudget= 700
+
 # increment = st.button('Increment')
 # if increment:
 #     st.session_state.count += 1
 
-# st.write('Count = ', st.session_state.count)
+# st.write('Count = ', st.session_state.foodBudget)
 def donutGenerator(target,income,color1,color2):
     budgetPercentage=target/income*100
     leftOverPercentage = 100-budgetPercentage
@@ -102,7 +103,7 @@ if page=="Accounts":
     st.header("Net Worth")
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("CASA Balance", "RM4,109")
+        st.metric("CA/SA Balance", "RM4109")
     with col2:
         st.metric("CC Balance", "0")
     with col3:
