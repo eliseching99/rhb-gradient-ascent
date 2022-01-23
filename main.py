@@ -189,7 +189,7 @@ if page=="Expenses":
                 balance= insuranceExpense-insuranceBudget
                 st.warning("⚠️ Looks like your spending RM" + str(balance)+" more than your target budget")
     st.header("My Budget")
-    fig, ax = plt.subplots(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(4, 4))
     wedgeprops = {'width':0.3, 'edgecolor':'black', 'linewidth':3}
     names=["Food","Transport","Grocery","Insurance","Savings"]
     disposableIncome=currentIncome-foodBudget-transportBudget-groceryBudget-insuranceBudget
@@ -199,8 +199,8 @@ if page=="Expenses":
     # explosion
     explode = (0.0, 0.00, 0.00, 0.00, 0.1)
     ax.pie([foodBudget,transportBudget,groceryBudget,insuranceBudget,disposableIncome],explode=explode,labels=names,autopct='%1.1f%%', wedgeprops=wedgeprops, startangle=90, colors=["#5DADE2",'#FFC0CB','#77dd77','#515A5A','#FDFD96'])
-    plt.text(0, 0, proportionExpenses+"%", ha='center', va='center', fontsize=42)
-    ax.text(0.35, -0.05, outputStr, transform=ax.transAxes, fontsize=14,
+    plt.text(0, 0, proportionExpenses+"%", ha='center', va='center', fontsize=30)
+    ax.text(0.30, -0.05, outputStr, transform=ax.transAxes, fontsize=12,
             verticalalignment='top')
     st.pyplot(fig)
     savingsSurplus= disposableIncome/currentIncome *100
@@ -221,11 +221,7 @@ if page=="Expenses":
 
 
     st.header("💸 My Income")
-    st.subheader("Categorised Income")
     df =pd.read_csv("cat_spending.csv")
-    customerRecords=df[df['display_category'] !="Uncategorised"]
-    print(customerRecords)
-    st.table(customerRecords)
 
     st.subheader("Uncategorised Income")
     with st.expander("📝 Actions Needed"):
@@ -240,7 +236,7 @@ if page=="Expenses":
                 st.success("Category has been updated")
                 uncategorisedIncome["display_category"] = np.where(uncategorisedIncome["txn_category"] == key, label, "Uncategorised")
                 
-            agree = st.checkbox('Recurring')
+            agree = st.checkbox('Recurring',key=key)
 
             if agree:
                 uncategorisedIncome=df[df["display_category"]=="Uncategorised"]
@@ -248,6 +244,12 @@ if page=="Expenses":
                 st.session_state.income += 5
 
         st.table(uncategorisedIncome)
+    st.subheader("Categorised Income")
+    customerRecords=df[df['display_category'] !="Uncategorised"]
+    print(customerRecords)
+    st.table(customerRecords)
+
+    
 
 
                 # uncategorisedIncome=df[df["txn_category"]==key].apply(updateCol(label))
